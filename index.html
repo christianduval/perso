@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LOFT – منيو المطعم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fcf3ec;--card:#fff;--ink:#1d2430;--mute:#6b7280;--brand:#0b5a99;--accent:#bcbd22;--line:#eadfd5;--onbrand:#fff;--hero:#0b5a99}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--card:#18222e;--ink:#eef2f6;--mute:#9aa6b2;--brand:#4da3e6;--line:#2a3745;--onbrand:#0f1720;--hero:#0b3d69}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--card:#18222e;--ink:#eef2f6;--mute:#9aa6b2;--brand:#4da3e6;--line:#2a3745;--onbrand:#0f1720;--hero:#0b3d69}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 118px)}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,Arial,sans-serif;padding-bottom:96px}
+header{background:var(--hero);color:#fff;text-align:center;padding:22px 16px 18px}
+header h1{font-size:2.3rem;font-weight:800;letter-spacing:.35em;padding-inline-start:.35em}
+header p{opacity:.9;font-size:.95rem}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 12px 8px;border-bottom:1px solid var(--line)}
+.bar::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:-1}
+#q{width:100%;padding:11px 16px;border-radius:24px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:1rem}
+#q:focus,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+#nav{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+#nav button{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:20px;font:inherit;font-size:.92rem;cursor:pointer}
+#nav button.on{background:var(--brand);color:var(--onbrand);border-color:var(--brand)}
+main{max-width:720px;margin:0 auto;padding:6px 12px}
+section h2{font-size:1.25rem;font-weight:800;margin:20px 4px 4px;color:var(--brand);border-inline-start:5px solid var(--accent);padding-inline-start:10px}
+section .note{margin:0 4px 8px;color:var(--mute);font-size:.85rem}
+.card{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:8px}
+.info{flex:1;min-width:0}
+.name{font-weight:600;font-size:1rem;direction:ltr;text-align:right;line-height:1.35}
+.desc{color:var(--mute);font-size:.8rem;direction:ltr;text-align:right;margin-top:2px}
+.price{color:var(--brand);font-weight:800;margin-top:4px}
+.add,.qty button{border:0;background:var(--brand);color:var(--onbrand);font:inherit;font-weight:600;border-radius:10px;cursor:pointer}
+.add{padding:9px 14px;white-space:nowrap}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:34px;height:34px;font-size:1.2rem;line-height:1}
+.qty b{min-width:24px;text-align:center}
+.empty{text-align:center;color:var(--mute);padding:40px 0}
+#fab{position:fixed;inset-inline:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);max-width:696px;margin-inline:auto;z-index:8;display:none;justify-content:space-between;align-items:center;background:var(--brand);color:var(--onbrand);border:0;border-radius:16px;padding:14px 18px;font:inherit;font-weight:800;font-size:1.05rem;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer;width:calc(100% - 24px)}
+#fab span.c{background:var(--accent);color:#222;border-radius:12px;padding:1px 10px;margin-inline-start:8px}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;display:none;align-items:flex-end;justify-content:center}
+#sheet{background:var(--bg);width:100%;max-width:720px;max-height:92%;overflow-y:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
+#sheet h3{font-size:1.2rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#x{border:0;background:var(--line);color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer}
+.row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.row .info .name{font-size:.92rem}
+.row .lt{font-weight:800;min-width:70px;text-align:left}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem;padding:12px 0}
+.modes{display:flex;gap:8px;margin:6px 0 10px}
+.modes button{flex:1;padding:11px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.modes button.on{background:var(--brand);color:var(--onbrand);border-color:var(--brand)}
+#sheet label{display:block;font-size:.85rem;color:var(--mute);margin:8px 0 3px}
+#sheet input,#sheet textarea{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+#err{color:#d33;font-size:.88rem;margin-top:8px;min-height:1.2em}
+#send{width:100%;margin-top:8px;border:0;border-radius:14px;padding:14px;background:#1fa855;color:#fff;font:inherit;font-weight:800;font-size:1.05rem;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){#sheet{animation:up .25s ease-out}@keyframes up{from{transform:translateY(40px);opacity:.4}}}
+</style>
+</head>
+<body>
+<header><h1>LOFT</h1><p>Restaurant grill &amp; chill · منيو إلكتروني</p></header>
+<div class="bar"><input id="q" type="search" placeholder="🔍 ابحث عن صنف…" aria-label="بحث"><div id="nav"></div></div>
+<main id="list"></main>
+<button id="fab" onclick="openCart()"><span>🛒 عرض السلة<span class="c" id="fc">0</span></span><span id="ft">0 دج</span></button>
+<div id="ov"><div id="sheet" role="dialog" aria-modal="true" aria-label="السلة"></div></div>
+
+<script>
+const PHONE="213782108432";
+// الصيغة: [الاسم, السعر, الوصف]
+const DEFAULT_MENU=[
+{t:"مقبلات باردة",e:"🥗",i:[["Salade Grecque",900],["Cocktail d’avocats",1000],["Thon à la Catalane",900],["Salade César",900],["Tomates Mozzarella",800],["Salade de Poulpe",1000],["Millefeuille Salé",750],["Salade du Chef Loft",1200]]},
+{t:"مقبلات ساخنة",e:"🍲",i:[["Camembert Pané Fondu",850],["Toasts au Chèvre Chaud et au Miel",850],["Omelette Poulet Champignons",600],["Soupe de Poisson",600],["Soupe de Potiron",500],["Velouté de Légumes",500]]},
+{t:"غراتان",e:"🧀",i:[["Gratin de Poulet",700],["Gratin Coquilles de Fruits de Mer",850]]},
+{t:"باستا",e:"🍝",i:[["Tagliatelles Poulet",900],["Tagliatelles Saumon",1150],["Spaghettis à la Bolognaise",950]]},
+{t:"برغر",e:"🍔",i:[["Forest",750],["Chicken",700],["Loft Burger",900]]},
+{t:"الأطباق الرئيسية",e:"🥩",n:"أطباق اليوم: باييلا (الخميس) لـ 2 أو 4 أو 6 أشخاص · مشوي كامل (Méchoui) لـ 12–20 شخصاً (بطلب مسبق) – اسأل الكاشير عن السعر.",i:[["Émincé de Bœuf à la Moutarde",1800],["Entrecôte Grillée",1900],["Suprême de Poulet Grillé",1150],["Filet de Bœuf",2400],["Côte de Bœuf à la Plancha (300g)",3000],["Cuisse de Poulet au Curry Indien",1400],["Méchoui Spécial du Chef",2600],["Poulet à la Crème",1350],["Roulade de Poulet Pané",1500],["Suprême de Poulet à la Milanaise",1200],["Pilon de Poulet Marocain",1000],["Grillades Mixtes",2000]]},
+{t:"بيتزا",e:"🍕",i:[["Marguerite",450,"Sauce tomate, mozzarella"],["Végétarienne",550,"Sauce tomate, mozzarella, aubergines, courgettes, poivrons"],["Poulet",700,"Sauce tomate, mozzarella, poivrons, poulet"],["Poulet Fumé",700,"Sauce tomate, mozzarella, poulet fumé"],["Regina",700,"Sauce tomate, mozzarella, aubergines, œuf, viande hachée"],["Orientale",700,"Sauce tomate, mozzarella, poivrons, oignons, œuf, merguez"],["Tuna",700,"Sauce tomate, fromage, mozzarella, poivrons, oignons, thon"],["Quatre Fromages",850,"Sauce tomate, mozzarella, camembert, roquefort, gruyère"],["Norvégienne",950,"Crème fraîche, mozzarella, saumon fumé"],["Volcano",1000,"Sauce tomate, mozzarella, piment, poulet, merguez, viande hachée"]]},
+{t:"سناكات حلوة",e:"🧇",n:"سكريات بالنوتيلا والشانتيي. الإضافات: نوتيلا، أوريو، M&M’s، كيت كات، ميلكا، فواكه… وغيرها.",i:[["Bubble Waffle",500],["Crêpes",400],["Gaufres",500],["Pancakes",400],["Supplément (إضافة)",200,"Nutella, Oreo, M&M’s, KitKat, Milka, fruits…"]]},
+{t:"باتيسري",e:"🍰",i:[["Cheese Cake",500],["Mille Feuille",250],["Baba",400],["Tarte aux Fruits",400],["Tarte au Citron",400],["Tarte aux Pommes",400],["Snickers",500],["Gâteau au Chocolat",500],["Éclair",250]]},
+{t:"ديسير",e:"🍮",i:[["Mousse au Chocolat",500],["Fondant au Chocolat",600],["Crème Brûlée",500],["Dattes à la Crème",400],["Flan Renversé",400],["Tiramisu",500]]},
+{t:"مشروبات باردة",e:"🥤",i:[["Eau Plate 25cl",150],["Eau Pétillante 25cl",150],["Soda",200],["Eau Plate 1L",250],["Eau Pétillante 1L",250],["Soda 1L",350],["Red Bull",600]]},
+{t:"مشروبات ساخنة",e:"☕",i:[["Café",300],["Café Liégeois",350],["Café Bonbon",350],["Café Illy",400],["Café au Lait Viennois",450],["Café Latté",250],["Cappuccino",300],["Chocolat Viennois",400],["Thé à la Menthe (Maison)",250],["Thé Infusion",250]]},
+{t:"كوكتيل",e:"🍹",i:[["Mojito",550,"Citron, menthe fraîche, sucre de canne"],["Mojito Red",550,"Citron, menthe fraîche, sucre de canne, sirop de fraise"],["Bora Bora",550,"Ananas, fruits de la passion, citron"],["Red Light",550,"Framboise, fraise, orange, citron"],["Loft Chill",550,"Sorbet citron, sirop de menthe, menthe fraîche"],["Piña Colada",550,"Lait de coco, ananas, crème"],["Cocktail de Fruits Pressés",550,"Fruits de saison"],["Milkshakes Nutella",650,"Ferrero – Bueno – Fruits"]]},
+{t:"شيشة",e:"💨",i:[["Al Fakher: Menthe / Pomme / Chewing-gum / Vanille",1500],["Kaloud Al Fakher",2000],["Royale Al Fakher",2500],["Adalya: Menthe / Pomme / Love / Ice Bonbon",2000],["Kaloud Adalya",2500],["Royale Adalya",3000]]}
+];
+// ===== ضع هنا رابط الـ CSV المنشور من Google Sheet (ملف > مشاركة > نشر على الويب > CSV) =====
+const SHEET_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vT5A_vc2pK28DDD1qbqwZbyxAhsu0eGsd843VPneHGtq4P6fPyoLpm4Ol5oMk1hVR-hg6K5FHCGR6RF/pub?gid=1906792013&single=true&output=csv";
+let MENU=DEFAULT_MENU;
+const cart={},$=s=>document.querySelector(s),fmt=n=>n.toLocaleString("en-US")+" دج";
+let mode="in",term="";
+const id=(c,k)=>c+"-"+k;
+function card(c,k,it){const key=id(c,k),q=cart[key]||0;
+return `<div class="card"><div class="info"><div class="name">${it[0]}</div>${it[2]?`<div class="desc">${it[2]}</div>`:""}<div class="price">${fmt(it[1])}</div></div>${ctl(key,q)}</div>`}
+function ctl(key,q){return q?`<div class="qty"><button data-d="1" data-k="${key}" aria-label="زيادة">+</button><b>${q}</b><button data-d="-1" data-k="${key}" aria-label="تقليل">−</button></div>`:`<button class="add" data-d="1" data-k="${key}">➕ إضافة</button>`}
+function render(){const t=term.trim().toLowerCase();let h="";
+MENU.forEach((s,c)=>{const items=s.i.map((it,k)=>[it,k]).filter(([it])=>!t||(it[0]+" "+(it[2]||"")+" "+s.t).toLowerCase().includes(t));
+if(!items.length)return;
+h+=`<section id="s${c}"><h2>${s.e} ${s.t}</h2>${s.n&&!t?`<p class="note">${s.n}</p>`:""}${items.map(([it,k])=>card(c,k,it)).join("")}</section>`});
+$("#list").innerHTML=h||'<p class="empty">لا توجد أصناف مطابقة للبحث 🔎</p>';bar()}
+function items(){const r=[];for(const key in cart){const[c,k]=key.split("-"),it=MENU[c].i[k];r.push({key,n:it[0],p:it[1],q:cart[key]})}return r}
+function bar(){const l=items(),n=l.reduce((a,b)=>a+b.q,0),t=l.reduce((a,b)=>a+b.q*b.p,0);
+$("#fab").style.display=n?"flex":"none";$("#fc").textContent=n;$("#ft").textContent=fmt(t)}
+function change(key,d){cart[key]=(cart[key]||0)+d;if(cart[key]<=0)delete cart[key];render();if($("#ov").style.display==="flex")cartView()}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)change(b.dataset.k,+b.dataset.d)});
+$("#q").addEventListener("input",e=>{term=e.target.value;render()});
+function buildNav(){$("#nav").innerHTML=MENU.map((s,c)=>`<button data-c="${c}">${s.e} ${s.t}</button>`).join("");}buildNav();
+$("#nav").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(!b)return;
+term="";$("#q").value="";render();
+document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x===b));
+document.getElementById("s"+b.dataset.c).scrollIntoView({behavior:"smooth",block:"start"})});
+function openCart(){$("#ov").style.display="flex";cartView()}
+function closeCart(){$("#ov").style.display="none"}
+$("#ov").addEventListener("click",e=>{if(e.target.id==="ov")closeCart()});
+const keep={};
+function saveFields(){["tbl","nm","ph","ad","nt"].forEach(i=>{const el=document.getElementById(i);if(el)keep[i]=el.value})}
+function cartView(){saveFields();const l=items(),t=l.reduce((a,b)=>a+b.q*b.p,0);
+if(!l.length){$("#sheet").innerHTML='<h3>🛒 السلة<button id="x" onclick="closeCart()">✕</button></h3><p class="empty">السلة فارغة. أضف أصنافاً من القائمة.</p>';return}
+$("#sheet").innerHTML=`<h3>🛒 سلتك<button id="x" onclick="closeCart()" aria-label="إغلاق">✕</button></h3>
+${l.map(x=>`<div class="row"><div class="info"><div class="name">${x.n}</div><div class="desc">${fmt(x.p)}</div></div><div class="qty"><button data-d="1" data-k="${x.key}">+</button><b>${x.q}</b><button data-d="-1" data-k="${x.key}">−</button></div><div class="lt">${fmt(x.p*x.q)}</div></div>`).join("")}
+<div class="tot"><span>الإجمالي</span><span>${fmt(t)}</span></div>
+<div class="modes"><button class="${mode==="in"?"on":""}" onclick="setMode('in')">🍽️ داخل المطعم</button><button class="${mode==="out"?"on":""}" onclick="setMode('out')">🛵 توصيل للمنزل</button></div>
+${mode==="in"?`<label for="tbl">رقم الطاولة</label><input id="tbl" inputmode="numeric" value="${keep.tbl||""}">`
+:`<label for="nm">الاسم</label><input id="nm" value="${keep.nm||""}"><label for="ph">رقم الهاتف</label><input id="ph" type="tel" inputmode="tel" value="${keep.ph||""}"><label for="ad">العنوان</label><textarea id="ad" rows="2">${keep.ad||""}</textarea>`}
+<label for="nt">ملاحظات الطلب (اختياري)</label><textarea id="nt" rows="2" placeholder="مثال: بدون بصل، درجة نضج اللحم…">${keep.nt||""}</textarea>
+<div id="err" role="alert"></div><button id="send" onclick="sendOrder()">إرسال الطلب عبر واتساب</button>`}
+function setMode(m){saveFields();mode=m;cartView()}
+function sendOrder(){saveFields();const v=i=>(keep[i]||"").trim(),l=items();
+if(mode==="in"&&!v("tbl"))return $("#err").textContent="اكتب رقم الطاولة قبل الإرسال.";
+if(mode==="out"&&(!v("nm")||!v("ph")||!v("ad")))return $("#err").textContent="اكتب الاسم ورقم الهاتف والعنوان قبل الإرسال.";
+const t=l.reduce((a,b)=>a+b.q*b.p,0),d=new Date().toLocaleString("ar-DZ");
+let m=`🧾 *طلب جديد – LOFT*\n🕒 ${d}\n━━━━━━━━━━━━━━\n`;
+m+=mode==="in"?`🍽️ *داخل المطعم*\n🪑 الطاولة: *${v("tbl")}*\n`:`🛵 *توصيل للمنزل*\n👤 الاسم: ${v("nm")}\n📞 الهاتف: ${v("ph")}\n📍 العنوان: ${v("ad")}\n`;
+m+=`━━━━━━━━━━━━━━\n*الطلب:*\n`;
+l.forEach((x,i)=>{m+=`${i+1}. ${x.n}\n    ${x.q} × ${x.p} = *${x.q*x.p} دج*\n`});
+m+=`━━━━━━━━━━━━━━\n💰 *الإجمالي: ${t} دج*\n`;
+if(v("nt"))m+=`📝 ملاحظات: ${v("nt")}\n`;
+if(mode==="out")m+=`(سعر التوصيل يُحدد من الكاشير)\n`;
+window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(m)}`,"_blank")}
+render();
+// ===== قراءة المنيو من Google Sheet =====
+const SRC=new URLSearchParams(location.search).get("sheet")||SHEET_URL,CK="loft_menu_csv";
+function parseCSV(t){const r=[];let row=[],f="",q=false;t=t.replace(/^\uFEFF/,"");
+for(let i=0;i<t.length;i++){const c=t[i];
+if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}
+else if(c==='"')q=true;else if(c===","){row.push(f);f=""}
+else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;row.push(f);f="";r.push(row);row=[]}else f+=c}
+if(f||row.length){row.push(f);r.push(row)}return r.filter(x=>x.some(y=>y.trim()))}
+function fromCSV(txt){const rows=parseCSV(txt);if(rows.length<2)return[];
+const h=rows[0].map(x=>x.trim().toLowerCase()),A={cat:["category","section","القسم","قسم"],name:["name","item","الاسم","الصنف"],price:["price","السعر"],desc:["desc","description","الوصف"],emoji:["emoji","icon","الأيقونة"],note:["note","ملاحظة","ملاحظة القسم"],av:["available","متوفر"]};
+const ix=(k,d)=>{const n=h.findIndex(x=>A[k].includes(x));return n<0?d:n},C=ix("cat",0),N=ix("name",1),P=ix("price",2),D=ix("desc",3),E=ix("emoji",4),T=ix("note",5),V=ix("av",-1);
+const map=new Map();
+rows.slice(1).forEach(r=>{const g=k=>(r[k]||"").trim(),price=parseFloat(g(P).replace(/[^\d.]/g,""));
+if(!g(N)||isNaN(price)||!g(C))return;
+if(V>=0&&["no","لا","0","false","غير متوفر"].includes(g(V).toLowerCase()))return;
+if(!map.has(g(C)))map.set(g(C),{t:g(C),e:g(E)||"🍽️",n:g(T),i:[]});
+const s=map.get(g(C));if(!s.n&&g(T))s.n=g(T);if(g(E)&&s.e==="🍽️")s.e=g(E);
+s.i.push(g(D)?[g(N),price,g(D)]:[g(N),price])});
+return[...map.values()]}
+function applyMenu(m){const nm={};items().forEach(x=>nm[x.n]=x.q);
+for(const k in cart)delete cart[k];MENU=m;
+MENU.forEach((s,c)=>s.i.forEach((it,k)=>{if(nm[it[0]])cart[c+"-"+k]=nm[it[0]]}));
+buildNav();render();if($("#ov").style.display==="flex")cartView()}
+async function loadSheet(){if(!SRC)return;
+try{const r=await fetch(SRC+(SRC.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});if(!r.ok)throw 0;
+const txt=await r.text(),m=fromCSV(txt);if(!m.length)throw 0;
+if(JSON.stringify(m)!==JSON.stringify(MENU))applyMenu(m);
+try{localStorage.setItem(CK,txt)}catch(e){}}catch(e){console.warn("تعذر تحميل الشيت، يُعرض آخر منيو محفوظ")}}
+if(SRC){try{const c=localStorage.getItem(CK);if(c){const m=fromCSV(c);if(m.length)applyMenu(m)}}catch(e){}
+loadSheet();setInterval(loadSheet,300000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadSheet()})}
+</script>
+</body>
+</html>
